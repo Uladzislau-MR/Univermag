@@ -1,6 +1,5 @@
 package com.vladislav.univermag.entity;
 
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
