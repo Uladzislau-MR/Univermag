@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Show all customers</title>
+</head>
+<body>
+
+<ul>
+    <li th:each="customer : ${customers}">
+        <span th:text="${customer.name}"></span>
+        <span th:text="${customer.surname}"></span>,
+        <span th:text="${customer.birthYear}"></span>,
+        <span th:text="${customer.height}"></span> cm
+    </li>
+</ul>
+
+</body>
+</html>
