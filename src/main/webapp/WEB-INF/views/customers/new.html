@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/customers/newCustomer}" th:object="${customer}" method="post">
+<!--    <input type="hidden" th:field="*{id}"/>-->
+
+    Name:      <input type="text" th:field="name"/>
+    <br><br>
+    Surname:   <input type="text" th:field="surname"/>
+    <br><br>
+    BirthYear: <input type="text" th:field="*{birthYear}"/>
+    <br><br>
+    Height:    <input type="text" th:field="*{height}"/>
+    <br><br>
+    <input type="submit" value="ok">
+</form>
+
+</body>
+</html>

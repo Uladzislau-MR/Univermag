@@ -1,16 +1,16 @@
 package com.vladislav.univermag.dao;
 
+import com.vladislav.univermag.dao.interfaces.CustomerRepository;
 import com.vladislav.univermag.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
-public class CustomerRepository {
+public class customerRepositoryImpl implements CustomerRepository {
 
 
     @Autowired
@@ -32,6 +32,17 @@ public class CustomerRepository {
             }
         }
         return null;
+    }
+
+    public void createOrUpdate(Customer updatedCustomer) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(updatedCustomer);
+    }
+
+    public void delete(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        Customer customer = session.get(Customer.class, id);
+        session.delete(customer);
     }
 
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ProductRepository {
+public class ProductRepositoryImpl {
     @Autowired
     SessionFactory sessionFactory;
 
@@ -18,6 +18,19 @@ public class ProductRepository {
 
         return session.createQuery("from Product", Product.class).getResultList();
     }
+
+    public Product findOneProduct(int id) {
+        List<Product> productList = findAllProducts();
+        for (Product product: productList) {
+            if(product.getId() == id) {
+                return product;
+            }
+
+        }
+        return null;
+    }
+
+
 
 
 }

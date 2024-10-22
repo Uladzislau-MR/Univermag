@@ -2,6 +2,8 @@ package com.vladislav.univermag.entity;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "plushkin_store_items")
@@ -14,6 +16,16 @@ public class Product {
     @Column(name = "item_name")
     private String itemName;
 
+    @Column(name = "manufacturer")
+    private String manufacturer;
+    @Column(name = "year_of_manufacture")
+    private int yearOfManufacture;
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    @ManyToMany(mappedBy = "products")
+    private Set<Customer> users = new HashSet<>();
+
     public Product() {
     }
 
@@ -24,14 +36,6 @@ public class Product {
         this.quantity = quantity;
     }
 
-
-    @Column(name = "manufacturer")
-    private String manufacturer;
-    @Column(name = "year_of_manufacture")
-    private int  yearOfManufacture;
-    @Column(name = "quantity")
-    private Integer quantity;
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -39,6 +43,15 @@ public class Product {
     public Long getId() {
         return id;
     }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
     public String getManufacturer() {
         return manufacturer;
     }

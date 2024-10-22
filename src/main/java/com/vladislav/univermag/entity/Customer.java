@@ -1,8 +1,10 @@
 package com.vladislav.univermag.entity;
 
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -10,7 +12,7 @@ public class Customer {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
-    private Long id;
+    private int id;
     @Column(name = "first_name")
     private String name;
     @Column(name = "last_name")
@@ -28,6 +30,19 @@ public class Customer {
         this.surname = surname;
         this.birthYear = birthYear;
         this.height = height;
+    }
+
+
+    @ManyToMany() //при ленивой загрузке список покупок не отражается
+    @JoinTable(
+            name = "customer_products",
+            joinColumns = @JoinColumn(name = "cust_id", referencedColumnName="customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "prod_id",  referencedColumnName="item_id" )
+    )
+    private Set<Product> products = new HashSet<>();
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     public String getName() {
@@ -62,11 +77,11 @@ public class Customer {
         this.height = height;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

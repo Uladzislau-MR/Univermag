@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Details</title>
+</head>
+<body>
+
+<h1>Customer Details</h1>
+<ul>
+    <li>
+        <span th:text="${customer.name}"></span>
+        <span th:text="${customer.surname}"></span>,
+        <span th:text="${customer.birthYear}"></span>,
+        <span th:text="${customer.height}"></span> cm
+    </li>
+</ul>
+
+<h2>Products:</h2>
+<ul>
+    <li th:each="product : ${customer.products}">
+        <span th:text="${product.getItemName()}"></span>
+    </li>
+    <li th:if="${#lists.isEmpty(customer.products)}">No products available.</li> <!-- Отображение, если продуктов нет -->
+</ul>
+
+</body>
+</html>
