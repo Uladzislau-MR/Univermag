@@ -3,10 +3,7 @@ package com.vladislav.univermag.configuration;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -29,8 +26,9 @@ import java.util.Properties;
 @PropertySource("classpath:database.properties")
 @EnableWebMvc
 @EnableTransactionManagement
+
 public class MyConfig implements WebMvcConfigurer {
-@Autowired
+    @Autowired
     private Environment env;
     @Autowired
     private  ApplicationContext applicationContext;

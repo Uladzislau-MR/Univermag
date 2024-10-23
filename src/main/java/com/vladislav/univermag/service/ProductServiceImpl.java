@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class ProductService {
+public class ProductServiceImpl {
     @Autowired
     ProductRepositoryImpl productRepositoryImpl;
 

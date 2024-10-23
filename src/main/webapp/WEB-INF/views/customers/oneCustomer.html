@@ -12,7 +12,7 @@
     <li>
         <span th:text="${customer.name}"></span>
         <span th:text="${customer.surname}"></span>,
-        <span th:text="${customer.birthYear}"></span>,
+
         <span th:text="${customer.height}"></span> cm
     </li>
 </ul>
@@ -22,7 +22,7 @@
     <li th:each="product : ${customer.products}">
         <span th:text="${product.getItemName()}"></span>
     </li>
-    <li th:if="${#lists.isEmpty(customer.products)}">No products available.</li> <!-- Отображение, если продуктов нет -->
+    <li th:if="${#lists.isEmpty(customer.products)}">No products available.</li>
 </ul>
 
 </body>

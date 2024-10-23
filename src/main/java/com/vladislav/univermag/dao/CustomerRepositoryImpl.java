@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class customerRepositoryImpl implements CustomerRepository {
+public class CustomerRepositoryImpl implements CustomerRepository {
 
 
     @Autowired

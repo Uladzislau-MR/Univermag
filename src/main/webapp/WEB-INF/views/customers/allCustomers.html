@@ -9,10 +9,10 @@
 
 <ul>
     <li th:each="customer : ${customers}">
-        <span th:text="${customer.name}"></span>
-        <span th:text="${customer.surname}"></span>,
-        <span th:text="${customer.birthYear}"></span>,
-        <span th:text="${customer.height}"></span> cm
+        <a th:href="@{/customers/{id}(id=${customer.id})}" th:text="${customer.name} + ' ' + ${customer.surname} "></a>
+        <form th:action="@{/customers/{id}/update(id=${customer.id})}" method="get" style="display:inline;">
+            <button type="submit">Update</button>
+        </form>
     </li>
 </ul>
 
