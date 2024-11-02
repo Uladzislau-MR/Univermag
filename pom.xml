@@ -12,12 +12,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <spring.version>5.3.24</spring.version> <!-- Убедитесь, что используете последнюю стабильную версию -->
-    <hibernate.version>5.6.9.Final</hibernate.version> <!-- Совместимая версия Hibernate -->
+    <spring.version>5.3.24</spring.version>
+    <hibernate.version>5.6.9.Final</hibernate.version>
   </properties>
 
   <dependencies>
-    <!-- JUnit -->
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -25,7 +25,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- Spring Dependencies -->
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -77,34 +77,31 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- JSTL -->
+
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
 
-    <!-- Hibernate Core -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
 
-    <!-- C3P0 Connection Pool -->
     <dependency>
       <groupId>com.mchange</groupId>
       <artifactId>c3p0</artifactId>
       <version>0.9.5.5</version>
     </dependency>
 
-    <!-- PostgreSQL Driver -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.6.0</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>

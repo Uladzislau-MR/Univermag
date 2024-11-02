@@ -1,18 +1,17 @@
 package com.vladislav.univermag.service.interfaces;
+import com.vladislav.univermag.dto.CustomerDTO;
 
-import com.vladislav.univermag.dto.CustomerCreationDTO;
-import com.vladislav.univermag.dto.CustomerViewDTO;
-import com.vladislav.univermag.entity.Customer;
 
 import java.util.List;
 
 public interface CustomerService {
 
-    List<CustomerViewDTO> findAllCustomers();
+    List<CustomerDTO> findAllCustomers();
 
-    CustomerViewDTO findOneCustomer(int id);
+    CustomerDTO findOneCustomer(int id);
 
-    void createOrUpdate(CustomerCreationDTO customer);
+    void update(CustomerDTO customer);
+    void create(CustomerDTO customer);
 
     void delete(int id);
 

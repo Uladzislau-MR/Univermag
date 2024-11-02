@@ -1,8 +1,10 @@
 package com.vladislav.univermag.service;
 
+import com.vladislav.univermag.convertors.ConvertCustomerDtoTOCustomer;
+import com.vladislav.univermag.convertors.ConvertCustomerToCustomerDto;
 import com.vladislav.univermag.dao.CustomerRepositoryImpl;
-import com.vladislav.univermag.dto.CustomerCreationDTO;
-import com.vladislav.univermag.dto.CustomerViewDTO;
+import com.vladislav.univermag.dao.interfaces.ContactRepository;
+import com.vladislav.univermag.dto.CustomerDTO;
 import com.vladislav.univermag.entity.Customer;
 import com.vladislav.univermag.service.interfaces.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,70 +14,48 @@ import org.springframework.transaction.annotation.Transactional;
 //import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 @Transactional
 @Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepositoryImpl customerRepositoryImpl;
+    @Autowired
+    ConvertCustomerToCustomerDto convertToCustomerDto;
+    @Autowired
+    ConvertCustomerDtoTOCustomer convertToCustomer;
+    @Autowired
+    private ContactRepository contactRepository;
 
-    public CustomerCreationDTO convertToCreationDTO(Customer customer) {
-        return new CustomerCreationDTO(customer.getId(), customer.getName(), customer.getSurname(),
-                customer.getBirthYear(), customer.getHeight());
-    }
 
-    public CustomerViewDTO convertToViewDTO(Customer customer) {
-        CustomerViewDTO customerViewDTO = new CustomerViewDTO(customer.getId(), customer.getName(),
-                customer.getSurname(), customer.getHeight());
-        customerViewDTO.setProducts(customer.getProducts());
-//        if(!customerViewDTO.getProducts().isEmpty()){
-//            
-//        }
-        // TODO: проверить как отображается список продуктов
-        return customerViewDTO;
-    }
 
-    public Customer convertToEntity(CustomerCreationDTO customerDTO) {
-        Customer customer = new Customer();
 
-        customer.setName(customerDTO.getName());
-        customer.setSurname(customerDTO.getSurname());
-        customer.setBirthYear(customerDTO.getBirthYear());
-        customer.setHeight(customerDTO.getHeight());
-
-        return customer;
-    }
-
-    public List<CustomerViewDTO> findAllCustomers() {
+    public List<CustomerDTO> findAllCustomers() {
         List<Customer> customerList = customerRepositoryImpl.findAllCustomers();
-        return customerList.stream()
-                .map(customer -> {
-                    CustomerViewDTO customerViewDTO = new CustomerViewDTO();
-                    customerViewDTO.setId(customer.getId());
-                    customerViewDTO.setName(customer.getName());
-                    customerViewDTO.setSurname(customer.getSurname());
-                    customerViewDTO.setHeight(customer.getHeight());
-
-                    return customerViewDTO;
-                })
-                .collect(Collectors.toList());
+        List<CustomerDTO> dtoList = new ArrayList<>();
+        for(Customer customer:customerList ) {
+         dtoList.add(  convertToCustomerDto.convert(customer));
+        }
+         return dtoList;
     }
 
 
-    public CustomerViewDTO findOneCustomer(int id) {
+    public CustomerDTO findOneCustomer(int id) {
 
         Customer customer = customerRepositoryImpl.findOneCustomer(id);
-        CustomerViewDTO customerViewDTO = convertToViewDTO(customer);
-        customer.getProducts().size(); // костыль для принудительной инициализации
-
-        return customerViewDTO;
+        CustomerDTO customerDTO = convertToCustomerDto.convert(customer);
+        customerDTO.setContactList(contactRepository.getAllContacts(id));
+        return customerDTO;
     }
 
 
-    public void createOrUpdate(CustomerCreationDTO dtoCustomer) {
-    customerRepositoryImpl.createOrUpdate(convertToEntity(dtoCustomer));
+    public void update(CustomerDTO dtoCustomer) {
+        customerRepositoryImpl.update(convertToCustomer.convertUpdate(dtoCustomer));
     }
 
+    public void create(CustomerDTO dtoCustomer) {
+        customerRepositoryImpl.create(convertToCustomer.convert(dtoCustomer));
+    }
 
     public void delete(int id) {
         customerRepositoryImpl.delete(id);

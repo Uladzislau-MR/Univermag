@@ -12,17 +12,25 @@
     <li>
         <span th:text="${customer.name}"></span>
         <span th:text="${customer.surname}"></span>,
-
         <span th:text="${customer.height}"></span> cm
     </li>
 </ul>
 
 <h2>Products:</h2>
 <ul>
-    <li th:each="product : ${customer.products}">
-        <span th:text="${product.getItemName()}"></span>
+    <li th:each="product : ${customer.productsList}">
+        <span th:text="${product.product.itemName}"></span>
+        <span th:text="${product.quantity}"></span>
     </li>
-    <li th:if="${#lists.isEmpty(customer.products)}">No products available.</li>
+    <li th:if="${#lists.isEmpty(customer.productsList)}">No products available.</li>
+</ul>
+
+<h2>Contacts:</h2>
+<ul>
+    <li th:each="contact : ${customer.contactsList}">
+        <span th:text="${contact.contactType}"></span>
+        <span th:text="${contact.contact}"></span>
+    </li>
 </ul>
 
 </body>

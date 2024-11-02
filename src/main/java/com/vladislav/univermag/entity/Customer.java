@@ -1,9 +1,10 @@
 package com.vladislav.univermag.entity;
 
 
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,29 +22,25 @@ public class Customer {
     private int birthYear;
     @Column(name = "height")
     private int height;
+    @OneToMany(mappedBy = "customer")
+    private List<Contact> contacts = new ArrayList<>();
+
+
 
     public Customer() {
     }
 
-    public Customer(String name, String surname, int birthYear, int height) {
+    public Customer(String name, String surname, int birthYear, int height, List<Contact> contacts ) {
         this.name = name;
         this.surname = surname;
         this.birthYear = birthYear;
         this.height = height;
+        this.contacts = contacts;
+
     }
 
 
-    @ManyToMany() //при ленивой загрузке список покупок не отражается
-    @JoinTable(
-            name = "customer_products",
-            joinColumns = @JoinColumn(name = "cust_id", referencedColumnName="customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "prod_id",  referencedColumnName="item_id" )
-    )
-    private Set<Product> products = new HashSet<>();
 
-    public Set<Product> getProducts() {
-        return products;
-    }
 
     public String getName() {
         return name;
@@ -84,6 +81,17 @@ public class Customer {
     public int getId() {
         return id;
     }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+
+
 
     @Override
     public String toString() {

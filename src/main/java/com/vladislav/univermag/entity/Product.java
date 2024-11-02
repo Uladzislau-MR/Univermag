@@ -3,6 +3,7 @@ package com.vladislav.univermag.entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,7 +13,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
-    private Long id;
+    private int id;
     @Column(name = "item_name")
     private String itemName;
 
@@ -20,27 +21,32 @@ public class Product {
     private String manufacturer;
     @Column(name = "year_of_manufacture")
     private int yearOfManufacture;
-    @Column(name = "quantity")
-    private Integer quantity;
+    @Column(name = "quantity_in_stock")
+    private Integer quantityInStock;
 
-    @ManyToMany(mappedBy = "products")
-    private Set<Customer> users = new HashSet<>();
+
+
+
 
     public Product() {
     }
 
-    public Product(String itemName, String manufacturer, int yearOfManufacture, int quantity) {
+    public Product(String itemName, String manufacturer, int yearOfManufacture, int quantityInStock) {
         this.itemName = itemName;
         this.manufacturer = manufacturer;
         this.yearOfManufacture = yearOfManufacture;
-        this.quantity = quantity;
+        this.quantityInStock = quantityInStock;
     }
 
-    public void setId(Long id) {
+
+
+
+
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -69,11 +75,11 @@ public class Product {
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return quantityInStock;
     }
 
     public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+        this.quantityInStock = quantity;
     }
 
     @Override
@@ -83,7 +89,7 @@ public class Product {
                ", itemName='" + itemName + '\'' +
                ", manufacturer='" + manufacturer + '\'' +
                ", yearOfManufacture=" + yearOfManufacture +
-               ", quantity=" + quantity +
+               ", quantity=" + quantityInStock +
                '}';
     }
 }

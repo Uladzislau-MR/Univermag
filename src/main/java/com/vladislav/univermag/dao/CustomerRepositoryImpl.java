@@ -1,13 +1,19 @@
 package com.vladislav.univermag.dao;
 
 import com.vladislav.univermag.dao.interfaces.CustomerRepository;
+import com.vladislav.univermag.dto.CustomerDTO;
 import com.vladislav.univermag.entity.Customer;
+import com.vladislav.univermag.entity.CustomerProduct;
+import com.vladislav.univermag.entity.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -34,15 +40,19 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return null;
     }
 
-    public void createOrUpdate(Customer updatedCustomer) {
+    public void update(Customer updatedCustomer) {
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(updatedCustomer);
+        session.update(updatedCustomer);
     }
-
+    public void create(Customer newCustomer) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(newCustomer);
+    }
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
         Customer customer = session.get(Customer.class, id);
         session.delete(customer);
+        // TODO: надо ли передавать в delete  DTO?
     }
 
 

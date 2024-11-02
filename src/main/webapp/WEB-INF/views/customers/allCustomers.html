@@ -4,15 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Show all customers</title>
+    <style>
+
+        .customer-info {
+            display: inline-block;
+            width: 150px;
+            vertical-align: middle;
+        }
+
+
+        .button-container {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .button-container form {
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body>
 
 <ul>
     <li th:each="customer : ${customers}">
-        <a th:href="@{/customers/{id}(id=${customer.id})}" th:text="${customer.name} + ' ' + ${customer.surname} "></a>
-        <form th:action="@{/customers/{id}/update(id=${customer.id})}" method="get" style="display:inline;">
-            <button type="submit">Update</button>
-        </form>
+        <div class="customer-info">
+            <a th:href="@{/customers/{id}(id=${customer.id})}" th:text="${customer.name} + ' ' + ${customer.surname} "></a>
+        </div>
+        <div class="button-container">
+            <form th:action="@{/customers/{id}/update(id=${customer.id})}" method="get" style="display:inline;">
+                <button type="submit">Update</button>
+            </form>
+            <form th:action="@{/customers/{id}(id=${customer.id})}" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit">Delete</button>
+            </form>
+        </div>
     </li>
 </ul>
 

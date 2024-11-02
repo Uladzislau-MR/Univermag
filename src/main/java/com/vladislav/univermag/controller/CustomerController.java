@@ -1,9 +1,11 @@
 package com.vladislav.univermag.controller;
 
-import com.vladislav.univermag.dto.CustomerCreationDTO;
-import com.vladislav.univermag.dto.CustomerViewDTO;
+import com.vladislav.univermag.dao.ContactRepositoryImpl;
+import com.vladislav.univermag.dao.CustomerProductRepositoryImpl;
+import com.vladislav.univermag.dao.interfaces.ContactRepository;
+import com.vladislav.univermag.dto.CustomerDTO;
 import com.vladislav.univermag.entity.Customer;
-import com.vladislav.univermag.service.CustomerServiceImpl;
+import com.vladislav.univermag.service.interfaces.CustomerProductService;
 import com.vladislav.univermag.service.interfaces.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,26 +14,31 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+
 @Controller
 @RequestMapping(value = "/customers")
-public class CustomerController  {
+public class CustomerController {
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CustomerProductService customerProductService;
+
+
+
 
     @GetMapping()
     public String getAll(Model model) {
-        List<CustomerViewDTO> customerList = customerService.findAllCustomers();
-
+        List<CustomerDTO> customerList = customerService.findAllCustomers();
         model.addAttribute("customers", customerService.findAllCustomers());
-
-
         return "customers/allCustomers";
     }
+
     @GetMapping("/{id}")
     public String getOne(@PathVariable("id") int id, Model model) {
-        System.out.println();
-        model.addAttribute("customer", customerService.findOneCustomer(id));
+        CustomerDTO customerDTO = customerService.findOneCustomer(id);
+        customerDTO.setProductsList(customerProductService.getCustomerProductsByCustomerId(id));
 
+        model.addAttribute("customer", customerDTO );
         return "customers/oneCustomer";
     }
 
@@ -42,28 +49,32 @@ public class CustomerController  {
 
 
     @PostMapping("/newCustomer")
-    public String saveCustomer(@ModelAttribute("customer") CustomerCreationDTO dtoCustomer) {
-      customerService.createOrUpdate(dtoCustomer);
+    public String saveCustomer(@ModelAttribute("customer") CustomerDTO dtoCustomer) {
+        customerService.create(dtoCustomer);
         return "redirect:/customers";
     }
 
-@GetMapping("{id}/update")
-public String updateCustomer(@PathVariable("id") int id, Model model) {
+    @GetMapping("{id}/update")
+    public String updateCustomer(@PathVariable("id") int id, Model model) {
 
-    CustomerCreationDTO dtoCustomer = new CustomerCreationDTO();
-    dtoCustomer.setId(id);
-    model.addAttribute("customer", dtoCustomer);
-    return "customers/update";
-}
+       CustomerDTO dtoCustomer =  customerService.findOneCustomer(id);
+        model.addAttribute("customer", dtoCustomer);
+        return "customers/update";
+    }
 
     @PatchMapping("/{id}/updatedCustomer")
-    public String saveUpdatedCustomer(@ModelAttribute("customer") CustomerCreationDTO dtoCustomer, @PathVariable("id") int id) {
+    public String saveUpdatedCustomer(@ModelAttribute("customer") CustomerDTO dtoCustomer, @PathVariable("id") int id) {
         System.out.println("Saving updated customer with id: " + id);
         dtoCustomer.setId(id);
-        customerService.createOrUpdate(dtoCustomer);
+        customerService.update(dtoCustomer);
         return "redirect:/customers";
     }
 
+    @DeleteMapping("{id}")
+    public String  deleteCustomer(@PathVariable("id") int id) {
+        customerService.delete(id);
+        return  "redirect:/customers";
+    }
 
 
 }
