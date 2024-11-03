@@ -48,9 +48,6 @@ public class ContactRepositoryImpl implements ContactRepository {
         List<Contact> contactList = getAllContacts(customerId);
         for (Contact contact : contactList) {
             if (contactId == contact.getId()) {
-
-//                updatedContact.setContact(contact.getContact());
-//                updatedContact.setContactType(contact.getContactType());
                 updatedContact.setCustomer(contact.getCustomer());
                 updatedContact.setActive(true);
                 contact.setActive(false);
