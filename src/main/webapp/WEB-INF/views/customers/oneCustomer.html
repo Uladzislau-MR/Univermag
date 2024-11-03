@@ -4,6 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Customer Details</title>
+    <style>
+
+        .customer-info {
+            display: inline-block;
+            width: 150px;
+            vertical-align: middle;
+        }
+
+
+        .button-container {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .button-container form {
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body>
 
@@ -12,7 +30,7 @@
     <li>
         <span th:text="${customer.name}"></span>
         <span th:text="${customer.surname}"></span>,
-        <span th:text="${customer.height}"></span> cm
+        <span th:text="${customer.height}"></span>
     </li>
 </ul>
 
@@ -30,6 +48,10 @@
     <li th:each="contact : ${customer.contactsList}">
         <span th:text="${contact.contactType}"></span>
         <span th:text="${contact.contact}"></span>
+        <form th:action="@{/customers/{id}/contact/{contactId}(id=${customer.id}, contactId=${contact.id})}" method="get" style="display:inline;">
+            <button type="submit">Update</button>
+        </form>
+
     </li>
 </ul>
 

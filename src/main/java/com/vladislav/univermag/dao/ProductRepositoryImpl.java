@@ -16,7 +16,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     public List<Product> getAllProducts() {
         Session session = sessionFactory.getCurrentSession();
-
         return session.createQuery("from Product", Product.class).getResultList();
     }
 
@@ -27,7 +26,6 @@ public class ProductRepositoryImpl implements ProductRepository {
             if (product.getId() == id) {
                 return product;
             }
-
         }
         return null;
     }
@@ -38,12 +36,10 @@ public class ProductRepositoryImpl implements ProductRepository {
         session.save(newProduct);
     }
 
-
     @Override
     public void update(Product product) {
     Session session = sessionFactory.getCurrentSession();
       session.update(product);
-
     }
 
     @Override
@@ -52,6 +48,4 @@ public class ProductRepositoryImpl implements ProductRepository {
         Product product = getOneProduct(id);
         session.delete(product);
     }
-
-
 }

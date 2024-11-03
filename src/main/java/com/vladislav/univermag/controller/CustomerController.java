@@ -64,7 +64,6 @@ public class CustomerController {
 
     @PatchMapping("/{id}/updatedCustomer")
     public String saveUpdatedCustomer(@ModelAttribute("customer") CustomerDTO dtoCustomer, @PathVariable("id") int id) {
-        System.out.println("Saving updated customer with id: " + id);
         dtoCustomer.setId(id);
         customerService.update(dtoCustomer);
         return "redirect:/customers";
@@ -76,6 +75,6 @@ public class CustomerController {
         return  "redirect:/customers";
     }
 
-
+// TODO : добавить логику изменения добавления контакта
 }
 

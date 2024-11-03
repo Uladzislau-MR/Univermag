@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface ContactRepository {
     List<Contact> getAllContacts(int id);
-
-
+    Contact getOneContact(int customer, int contactId);
+ public void updateContact(int customerId, int contactId, Contact updatedContact);
+    public void deleteContact(int customer, int contactId);
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Update</title>
+</head>
+<body>
+<form th:action="@{/customers/{id}/contact/{contactId}(id=${customer.id}, contactId=${contact.id})}" method="post">
+    <input type="hidden" name="_method" value="patch"/>
+    <label>
+        Contact Type:
+        <input type="text" th:field="*{contact.contactType}" value="${contact.contactType}" />
+    </label>
+    <br><br>
+    <label>
+        Contact:
+        <input type="text" th:field="*{contact.contact}" value="${contact.contact}" />
+    </label>
+    <br><br>
+    <input type="submit" value="Update" />
+</form>
+</body>
+</html>
