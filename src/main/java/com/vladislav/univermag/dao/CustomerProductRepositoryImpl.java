@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class CustomerProductRepositoryImpl implements CustomerProductRepository 
         return null;
     }
 
-    public void addProductToBasket(Customer customer, Product product, int quantity){
+    public void addProductToCustomer(Customer customer, Product product, int quantity){
         Session session = sessionFactory.getCurrentSession();
    CustomerProduct newCustomerProduct = new CustomerProduct();
    newCustomerProduct.setCustomer(customer);

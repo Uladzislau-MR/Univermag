@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
         for (Product product : productList) {
             ProductDto productDto = convertProductToProductDto.convert(product);
             productDtoList.add(productDto);
-            return productDtoList;
+
         }
         return productDtoList;
     }
@@ -38,8 +38,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto getOneProduct(int id) {
         Product product = productRepositoryImpl.getOneProduct(id);
-        ProductDto productDto = convertProductToProductDto.convert(product);
-        return productDto;
+        return convertProductToProductDto.convert(product);
     }
 
     @Override

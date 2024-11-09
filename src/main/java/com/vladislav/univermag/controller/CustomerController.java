@@ -1,8 +1,6 @@
 package com.vladislav.univermag.controller;
 
-import com.vladislav.univermag.dao.ContactRepositoryImpl;
-import com.vladislav.univermag.dao.CustomerProductRepositoryImpl;
-import com.vladislav.univermag.dao.interfaces.ContactRepository;
+
 import com.vladislav.univermag.dto.CustomerDTO;
 import com.vladislav.univermag.entity.Customer;
 import com.vladislav.univermag.service.interfaces.CustomerProductService;
@@ -11,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/customers")
@@ -28,7 +23,7 @@ public class CustomerController {
 
     @GetMapping()
     public String getAll(Model model) {
-        List<CustomerDTO> customerList = customerService.findAllCustomers();
+
         model.addAttribute("customers", customerService.findAllCustomers());
         return "customers/allCustomers";
     }
@@ -37,7 +32,6 @@ public class CustomerController {
     public String getOne(@PathVariable("id") int id, Model model) {
         CustomerDTO customerDTO = customerService.findOneCustomer(id);
         customerDTO.setProductsList(customerProductService.getCustomerProductsByCustomerId(id));
-
         model.addAttribute("customer", customerDTO );
         return "customers/oneCustomer";
     }
