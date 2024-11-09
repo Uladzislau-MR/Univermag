@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customerList = customerRepositoryImpl.findAllCustomers();
         List<CustomerDTO> dtoList = new ArrayList<>();
         for(Customer customer:customerList ) {
-         dtoList.add(  convertToCustomerDto.convert(customer));
+         dtoList.add(convertToCustomerDto.convert(customer));
         }
          return dtoList;
     }

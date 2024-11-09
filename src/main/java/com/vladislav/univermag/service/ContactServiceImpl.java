@@ -1,7 +1,11 @@
 package com.vladislav.univermag.service;
 
+import com.vladislav.univermag.convertors.ConvertCustomerDtoTOCustomer;
 import com.vladislav.univermag.dao.interfaces.ContactRepository;
+import com.vladislav.univermag.dao.interfaces.CustomerRepository;
+import com.vladislav.univermag.dto.CustomerDTO;
 import com.vladislav.univermag.entity.Contact;
+import com.vladislav.univermag.entity.Customer;
 import com.vladislav.univermag.entity.Product;
 import com.vladislav.univermag.service.interfaces.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +18,8 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
     @Autowired
     private ContactRepository contactRepository;
-
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public List<Contact> getAllContacts(int id) {
@@ -24,6 +29,13 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public Contact getOneContact(int customerId, int contactId) {
         return contactRepository.getOneContact(customerId, contactId);
+    }
+    public void createNewContact(CustomerDTO customerDTO,Contact contact) {
+        ConvertCustomerDtoTOCustomer convertCustomerDtoTOCustomer = new ConvertCustomerDtoTOCustomer();
+        Customer customer = convertCustomerDtoTOCustomer.convertUpdate(customerDTO);
+        contact.setCustomer(customer);
+        contactRepository.createContact(contact);
+
     }
 
 

@@ -2,6 +2,7 @@ package com.vladislav.univermag.dao;
 
 import com.vladislav.univermag.dao.interfaces.ContactRepository;
 import com.vladislav.univermag.entity.Contact;
+import com.vladislav.univermag.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,12 @@ public class ContactRepositoryImpl implements ContactRepository {
             }
         }
 
+    }
+    public void createContact(Contact newContact){
+        newContact.setActive(true);
+        Contact contact = newContact;
+        Session session = sessionFactory.getCurrentSession();
+        session.save(newContact);
     }
 
     public void deleteContact(int customerId, int contactId) {

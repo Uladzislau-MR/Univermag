@@ -43,17 +43,28 @@
     <li th:if="${#lists.isEmpty(customer.productsList)}">No products available.</li>
 </ul>
 
-<h2>Contacts:</h2>
-<ul>
-    <li th:each="contact : ${customer.contactsList}">
-        <span th:text="${contact.contactType}"></span>
-        <span th:text="${contact.contact}"></span>
-        <form th:action="@{/customers/{id}/contact/{contactId}(id=${customer.id}, contactId=${contact.id})}" method="get" style="display:inline;">
-            <button type="submit">Update</button>
-        </form>
 
-    </li>
-</ul>
+<h2>Contacts:</h2>
+<table>
+    <tr th:each="contact : ${customer.contactsList}">
+        <td th:text="${contact.contactType}"></td>
+        <td th:text="${contact.contact}"></td>
+        <td>
+            <form th:action="@{/customers/{id}/contact/{contactId}(id=${customer.id}, contactId=${contact.id})}" method="get" style="display:inline;">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+        <td>
+        <form th:action="@{/customers/{customerId}/delete/{contactId}(customerId=${customer.id}, contactId=${contact.id})}" method="post" style="display:inline;">
+            <input type="hidden" name="_method" value="delete"/>
+            <button type="submit">Delete</button>
+        </form>
+        </td>
+    </tr>
+<!--    <tr th:if="${#lists.isEmpty(customer.contactsList)}">-->
+<!--        <td colspan="3">No contacts available.</td>-->
+<!--    </tr>-->
+</table>
 
 </body>
 </html>

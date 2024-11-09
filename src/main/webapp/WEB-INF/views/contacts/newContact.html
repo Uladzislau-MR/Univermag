@@ -23,20 +23,16 @@
     </style>
 </head>
 <body>
-<form th:action="@{/customers/{id}/contact/{contactId}(id=${customer.id}, contactId=${contact.id})}"
-      method="post" th:object="${contact}">
+<form th:action="@{/customers/{id}/contact/{contactId}(id=${customer.id}, contactId=${contact.id})}" method="post" th:object="${contact}">
     <input type="hidden" name="_method" value="patch"/>
-    <label for="contactType">Choose contact Type:</label>
-    <select th:field="*{contactType}" id="contactType">
 
-<!--        <option value="" disabled th:if="${contact.contactType == null}" selected>Choose contact type</option>-->
-        <option th:if="${contact.contactType == null}" selected></option>
+    <label for="contactType">Contact Type:</label>
+    <select th:field="*{contactType}" id="contactType">
+        <option value="" disabled>Выберите тип контакта</option>
         <th:block th:each="type : ${contactTypes}">
             <option th:value="${type}" th:text="${type}" th:selected="${type} == *{contactType}"></option>
         </th:block>
     </select>
-
-
     <br><br>
 
     <label for="contact">Contact:</label>

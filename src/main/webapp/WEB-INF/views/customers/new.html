@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:action="@{/customers/newCustomer}" th:object="${customer}" method="post">
+<form th:action="@{/customers/newCustomer}" th:object="${customer, id=${customer.id}}" method="post">
 <!--    <input type="hidden" th:field="*{id}"/>-->
 
     Name:      <input type="text" th:field="name"/>

@@ -69,12 +69,14 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
+
+
     @DeleteMapping("{id}")
     public String  deleteCustomer(@PathVariable("id") int id) {
         customerService.delete(id);
         return  "redirect:/customers";
     }
 
-// TODO : добавить логику изменения добавления контакта
+
 }
 
